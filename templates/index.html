@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Customer Churn Prediction</h1>
+            <p>Enter customer information to predict churn probability</p>
+        </header>
+
+        <form id="predictionForm" class="prediction-form">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="18" max="70" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tenure_months">Tenure (months):</label>
+                <input type="number" id="tenure_months" name="tenure_months" min="1" max="72" required>
+            </div>
+
+            <div class="form-group">
+                <label for="monthly_charges">Monthly Charges ($):</label>
+                <input type="number" id="monthly_charges" name="monthly_charges" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="total_charges">Total Charges ($):</label>
+                <input type="number" id="total_charges" name="total_charges" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="num_services">Number of Services:</label>
+                <input type="number" id="num_services" name="num_services" min="1" max="8" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contract_length">Contract Length:</label>
+                <select id="contract_length" name="contract_length" required>
+                    <option value="">Select contract type</option>
+                    <option value="Month-to-month">Month-to-month</option>
+                    <option value="One year">One year</option>
+                    <option value="Two year">Two year</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="has_support">Has Support:</label>
+                <select id="has_support" name="has_support" required>
+                    <option value="">Select option</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="payment_method">Payment Method:</label>
+                <select id="payment_method" name="payment_method" required>
+                    <option value="">Select payment method</option>
+                    <option value="Credit card">Credit card</option>
+                    <option value="Bank transfer">Bank transfer</option>
+                    <option value="Mailed check">Mailed check</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button type="button" id="randomBtn" class="btn btn-secondary">
+                    🎲 Generate Random Data
+                </button>
+                <button type="button" id="predictBtn" class="btn btn-primary">
+                    🔮 Predict Churn
+                </button>
+            </div>
+        </form>
+
+        <div id="result" class="result hidden">
+            <h3>Prediction Result</h3>
+            <div id="resultContent"></div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Analyzing customer data...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
