@@ -19,6 +19,16 @@ churn_prediction_ml/
 └── README.md              # This file
 ```
 
+## What's New (Latest updates)
+
+- Added `/health` endpoint for service health checks
+- Added `/random-data` endpoint to generate valid random customer records for testing and demo
+- Added `/predict/batch` endpoint for batched predictions
+- Added JSON input validation for required fields in `/predict`
+- Standardized model loading via `ChurnPredictor` in `predict.py`
+- Added explicit `message` field to API responses and improved error traceback handling
+
+
 ## Setup Instructions
 
 ### Step 1: Create Virtual Environment
@@ -62,6 +72,8 @@ Open your browser and go to `http://localhost:5000` for an interactive web inter
 ```bash
 python3 predict.py
 ```
+- Runs `ChurnPredictor` to load `churn_model.pkl`, `scaler.pkl`, `label_encoders.pkl`, and `feature_names.pkl`.
+- Outputs example prediction for a static, hard-coded sample customer.
 
 ### Option 3: Real-Time API Deployment
 ```bash
@@ -105,8 +117,11 @@ Content-Type: application/json
     "payment_method": "Credit card"
 }
 ```
+- Success: 200 with `prediction` object and `message`.
+- Missing required field: 400 with `missing_fields` list.
+- Internal error: 500 with `error` and `traceback`.
 
-**3. Batch Predictions**
+**5. Batch Predictions**
 ```bash
 POST /predict/batch
 Content-Type: application/json
@@ -118,6 +133,10 @@ Content-Type: application/json
     ]
 }
 ```
+- Returns `predictions` array with per-customer status.
+- Includes `total` and `successful` counts.
+- Handles partial validity by including errors per record.
+
 
 #### Example cURL Requests:
 
